@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebSocket示例</title>
+    <title>NekoPlugin - 聊天</title>
     <style>
         body, html {
             height: 100%;
@@ -104,7 +104,7 @@
     <script>
         var Address = localStorage.getItem("serverAddress");
         document.addEventListener("DOMContentLoaded", function() {
-            displayMessage("正在尝试连接" + Address, 'other');
+            displayMessage("正在尝试连接到服务器", 'other');
         });
         var socket = new WebSocket("ws://" + Address);
 
