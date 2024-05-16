@@ -16,10 +16,9 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            width: 80%; /* 新增 */
-            min-width: 300px; /* 新增，根据需要调整 */
-            max-width: 800px; /* 调整 */
+            width: 80%;
+            min-width: 300px;
+            max-width: 800px;
             margin: auto;
             background-color: #fff;
             padding: 10px;
@@ -42,12 +41,12 @@
             border-radius: 10px;
             border: 1px solid #ccc;
             max-width: 60%;
-            opacity: 0; /* 新增 */
-            transform: translateY(20px); /* 新增 */
-            animation: fadeInUp 0.5s forwards; /* 新增 */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
         }
 
-        @keyframes fadeInUp { /* 新增 */
+        @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -68,6 +67,7 @@
 
         .input-container {
             display: flex;
+            justify-content: space-between;
             margin-top: 10px;
         }
 
@@ -87,7 +87,66 @@
             color: white;
             border: none;
             border-radius: 5px;
+        }
+
+        #onlineListButton, #menuButton {
+            padding: 10px;
+            margin: 2px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+        }
+
+        #onlineListButton {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #menuButton {
+            background-color: #4CAF50; /* 修改为绿色 */
+            color: white;
+        }
+
+        /* 新增菜单样式 */
+    .menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    width: 200px;
+    background-color: rgba(245, 245, 245, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.menu.show {
+    display: block; /* 修改为显示菜单 */
+    animation: fadeIn 0.3s forwards; /* 添加淡入动画 */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+        .menu-item {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item:hover {
+            background-color: #f0f0f0;
         }
     </style>
 </head>
@@ -97,8 +156,18 @@
         <div class="input-container">
             <input type="text" id="messageInput" placeholder="输入消息..." onkeydown="handleKeyDown(event)">
             <button id="sendButton" onclick="sendMessage()">发送</button>
-            <button id="onlineListButton" onclick="getOnlineList()">在线人员</button>
         </div>
+        <div class="input-container">
+            <div>
+                <button id="onlineListButton" onclick="getOnlineList()">在线人员</button>
+                <button id="menuButton" onclick="toggleMenu()">菜单</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新增菜单 -->
+    <div class="menu" id="menu">
+        <div class="menu-item" onclick="returnToIndex()">返回服务器地址页面</div>
     </div>
 
     <script>
@@ -149,6 +218,25 @@
         function getOnlineList() {
             socket.send("/getOnlineList"); // 向服务端请求在线人员列表
         }
+
+        // 新增菜单功能
+        function toggleMenu() {
+            var menu = document.getElementById('menu');
+            menu.classList.toggle('show'); // 切换菜单的显示状态
+        }
+
+        function returnToIndex() {
+            window.location.href = 'index.html';
+        }
+
+        // 点击菜单外部隐藏菜单
+        document.addEventListener('click', function(event) {
+            var menu = document.getElementById('menu');
+            var button = document.getElementById('menuButton');
+            if (!menu.contains(event.target) && event.target !== button) {
+                menu.classList.remove('show'); // 隐藏菜单
+            }
+        });
     </script>
 </body>
 </html>
