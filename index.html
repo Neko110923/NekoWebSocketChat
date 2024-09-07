@@ -51,11 +51,7 @@
     <script>
         function save() {
             var Text = document.getElementById("Input").value;
-            if(Text === "WTFXXJ"){
-                localStorage["\u0073\u0065\u0074\u0049\u0074\u0065\u006d"]("sserddArevres".split("").reverse().join(""),"\u0034\u0039\u002e\u0032\u0033\u0032\u002e\u0032\u0030\u0038\u002e\u0038\u003a\u0038\u0030\u0038\u0030");
-            }else{
-                localStorage.setItem("serverAddress", Text);
-            }
+            localStorage.setItem("serverAddress", Text);
             window.location.href = "chat.html";
         }
     </script>

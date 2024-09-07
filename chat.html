@@ -193,6 +193,11 @@
             var input = document.getElementById('messageInput');
             var message = input.value.trim();
             if (message) {
+                // 判断消息是否超过150字符
+                if (message.length > 150) {
+                    alert("消息已达到最高限制长度！(当前消息: " + message.length + " 字符,最高限制150字符)");
+                    return;
+                }
                 displayMessage(message, 'self');
                 socket.send(message);
                 input.value = ''; // 清空输入框
